@@ -1,7 +1,6 @@
-import type { IconLink } from "../types/link";
-import { IoMailOutline } from "react-icons/io5";
 import { AiFillInstagram } from "react-icons/ai";
-import { BiScreenshot } from "react-icons/bi";
+import { IoMailOutline } from "react-icons/io5";
+import type { IconLink } from "../types/link";
 
 export const FinleyEmail = "fin.stein02@gmail.com";
 
