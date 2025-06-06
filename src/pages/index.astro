@@ -1,0 +1,28 @@
+---
+import FinleyList from "../components/FinleyList.astro";
+import { FinleyLinks } from "../data/links";
+import Content from "../layouts/Content.astro";
+import FinleyPage from "../layouts/FinleyPage.astro";
+import Group from "../layouts/Group.astro";
+---
+
+<FinleyPage>
+  <Content>
+    <Group alignItems="center">
+      <!-- <div
+        class="tenor-gif-embed"
+        data-postid="26343653"
+        data-share-method="host"
+        data-aspect-ratio="1"
+        data-width="100%"
+      >
+        <a href="https://tenor.com/view/kurica-gif-26343653">Kurica GIF</a>from <a
+          href="https://tenor.com/search/kurica-gifs">Kurica GIFs</a
+        >
+      </div> -->
+      <script type="text/javascript" async src="https://tenor.com/embed.js"
+      ></script>
+      <FinleyList links={FinleyLinks} />
+    </Group>
+  </Content>
+</FinleyPage>

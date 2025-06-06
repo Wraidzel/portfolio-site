@@ -1,0 +1,41 @@
+---
+import Group from "../layouts/Group.astro";
+import type { IconLink } from "../types/link";
+
+type Props = {
+  links: IconLink[];
+  scale?: number;
+};
+
+const { scale, links } = Astro.props;
+---
+
+<Group
+  noCollapse
+  direction="row"
+  justifyContent="center"
+  alignItems="center"
+  gap="1em"
+>
+  {
+    links.map((l) => (
+      <a target="_blank" rel="noopener noreferrer" href={l.url}>
+        <l.icon size={"4em"} color="var(--finley-font-color)" />
+      </a>
+    ))
+  }
+</Group>
+<style>
+  a {
+    transition: border-color 0.5s;
+    border: 0;
+    border-bottom: 0.1rem solid;
+    border-color: transparent;
+    padding-bottom: -0.1rem;
+  }
+
+  a:hover {
+    transition: border-color 0.1s;
+    border-color: var(--finley-font-color);
+  }
+</style>
