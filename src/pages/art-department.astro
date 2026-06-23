@@ -1,0 +1,245 @@
+---
+// src/pages/art-department.astro
+import Content from "../layouts/Content.astro";
+import FinleyPage from "../layouts/FinleyPage.astro";
+import Group from "../layouts/Group.astro";
+
+// 🖼️ The Nuclear Option: Explicitly import the images so Astro CANNOT lose the paths
+import thumb1 from "../../public/art-thumb-1.jpg";
+import thumb2 from "../../public/art-thumb-2.jpg";
+import thumb3 from "../../public/art-thumb-3.jpg";
+import thumb4 from "../../public/art-thumb-4.jpg";
+import thumb5 from "../../public/art-thumb-5.jpg";
+---
+
+<FinleyPage>
+  <Content>
+    <Group alignItems="center">
+      
+      <div id="reel-container" class="video-container placeholder-active">
+        
+        <button id="play-trigger" class="video-placeholder" aria-label="Play Art Department Reel">
+          
+          <div class="slideshow-background">
+            <div class="slide slide-1" style={`background-image: url('${thumb1.src}')`}></div>
+            <div class="slide slide-2" style={`background-image: url('${thumb2.src}')`}></div>
+            <div class="slide slide-3" style={`background-image: url('${thumb3.src}')`}></div>
+            <div class="slide slide-4" style={`background-image: url('${thumb4.src}')`}></div>
+            <div class="slide slide-5" style={`background-image: url('${thumb5.src}')`}></div>
+          </div>
+
+          <div class="placeholder-content">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <h2>Art Department Reel <span class="subtext">(click here)</span></h2>
+          </div>
+        </button>
+
+        <div id="video-target" class="video-iframe-wrapper"></div>
+      </div>
+
+      <div class="action-footer">
+        <a href="/" class="back-button">
+          back
+        </a>
+      </div>
+
+    </Group>
+  </Content>
+</FinleyPage>
+
+<script>
+  const trigger = document.getElementById('play-trigger');
+  const container = document.getElementById('reel-container');
+  const target = document.getElementById('video-target');
+
+  trigger?.addEventListener('click', () => {
+    if (container && target) {
+      container.classList.remove('placeholder-active');
+      container.classList.add('video-active');
+
+      target.innerHTML = `
+        <iframe 
+          src="https://www.youtube.com/embed/kYKM0L4NjME?autoplay=1&mute=1&modestbranding=1&rel=0" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen
+          style="position:absolute; top:0; left:0; width:100%; height:100%; background: black;" 
+          title="Art Department Showreel">
+        </iframe >
+      `;
+      
+      trigger.style.display = 'none';
+    }
+  });
+</script>
+
+<style>
+  /* --- 🎬 VIDEO CONTAINER STYLES --- */
+  .video-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 3.5rem auto;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: padding-bottom 0.4s ease, border-radius 0.4s ease, box-shadow 0.4s ease, max-width 0.4s ease;
+  }
+
+  .placeholder-active {
+    max-width: 550px; 
+    padding-bottom: 45%; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .video-active {
+    max-width: 850px;
+    padding-bottom: 53%; 
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border-radius: 0px; 
+  }
+
+  .video-placeholder {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #111116; 
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease-in-out;
+    z-index: 10;
+    overflow: hidden;
+  }
+
+  .video-placeholder:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.01);
+  }
+
+  /* 🎞️ Crossfading CSS Backgrounds */
+  .slideshow-background {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1;
+    background: #111116;
+  }
+
+  .slideshow-background::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(17, 17, 22, 0.35); 
+    z-index: 2;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+    opacity: 0;
+    animation: fade 20s linear infinite both; 
+  }
+
+  .slide-1 { animation-delay: 0s; }
+  .slide-2 { animation-delay: 4s; }
+  .slide-3 { animation-delay: 8s; }
+  .slide-4 { animation-delay: 12s; }
+  .slide-5 { animation-delay: 16s; }
+
+  @keyframes fade {
+    0%   { opacity: 0; }
+    5%   { opacity: 1; }
+    20%  { opacity: 1; }
+    25%  { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .placeholder-content {
+    position: relative;
+    z-index: 3; 
+    text-align: center;
+    color: #ffffff;
+    font-family: system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .play-icon {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 0.5em;
+    color: #ffffff;
+    transition: transform 0.25s ease;
+    opacity: 0.8;
+  }
+
+  .video-placeholder:hover .play-icon {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+
+  .placeholder-content h2 {
+    margin: 0;
+    font-size: 1.35em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .subtext {
+    display: block;
+    font-size: 0.75em;
+    font-weight: 400;
+    opacity: 0.6;
+    margin-top: 0.4em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .video-iframe-wrapper {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+  }
+
+  /* 🔙 Back Button Footer Layout */
+  .action-footer {
+    margin-top: 4rem;
+    text-align: center;
+  }
+
+  .back-button {
+    display: inline-block;
+    font-family: "Futura-Medium", "Futura", system-ui, sans-serif; 
+    font-size: 2em; 
+    font-weight: 900; 
+    color: inherit; 
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .back-button:hover {
+    opacity: 0.7; 
+  }
+
+  /* --- 📱 MOBILE STYLES --- */
+  @media (max-width: 768px) {
+    .placeholder-active {
+      max-width: 340px; 
+      padding-bottom: 90%; 
+    }
+
+    .video-active {
+      max-width: 100%;
+      padding-bottom: 53%; 
+    }
+    
+    .action-footer {
+      margin-top: 2.5rem;
+    }
+  }
+</style>

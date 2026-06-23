@@ -1,0 +1,20 @@
+---
+import { FinleySocials } from "../data/socials";
+import Group from "../layouts/Group.astro";
+import IconLinks from "./IconLinks.astro";
+---
+
+<footer>
+  <Group alignItems="center">
+    <IconLinks links={FinleySocials} />
+  </Group>
+</footer>
+<style>
+  footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    min-width: 100%;
+  }
+</style>

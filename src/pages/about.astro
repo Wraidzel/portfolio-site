@@ -1,0 +1,214 @@
+---
+// src/pages/about.astro
+import Content from "../layouts/Content.astro";
+import FinleyPage from "../layouts/FinleyPage.astro";
+---
+
+<FinleyPage>
+  <Content>
+    <div class="about-wrapper">
+      <div class="about-grid">
+        
+        <div class="text-column">
+          <div class="divider top-divider"></div>
+          
+          <p>
+            A motivated and creative problem-solver, Finley Stein has had a passion for cinematic effects and illusions since age five, when they were introduced to the films of Ray Harryhausen.
+          </p>
+          <p>
+            Finley developed their skills as a Nuke compositor and CG artist across several years of professional and independent projects, including FX’s Love Story and The Beauty. Their dedication to the craft is matched by an equal dedication to client satisfaction and rapport.
+          </p>
+          <p>
+            In their four years at Florida State University’s College of Motion Picture Arts, Finley also specialized in art department, G&E, and sound roles. Their broad experience with film production makes them a versatile member of any team.
+          </p>
+          
+          <a href="/finley-resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-link">
+            Link to Resume
+          </a>
+        </div>
+
+        <div class="image-column">
+          <div class="portrait-container">
+            <img src="/finley-portrait.jpg" alt="Finley Stein Portrait" class="portrait" />
+            <div class="divider bottom-divider"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="action-footer">
+        <a href="/" class="back-button">
+          back
+        </a>
+      </div>
+
+    </div>
+  </Content>
+</FinleyPage>
+
+<style>
+  /* --- 🖥️ DESKTOP STYLES --- */
+  .about-wrapper {
+    background-color: #ffffff;
+    color: #111111;
+    padding: 3.5rem 2.5rem; 
+    border-radius: 8px;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; 
+    gap: 4rem; 
+    max-width: 1100px; 
+    margin: 0 auto;
+    align-items: center; 
+  }
+
+  .text-column {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 1.25rem; 
+    line-height: 1.5;   
+  }
+
+  .text-column p {
+    margin-bottom: 1.5rem;
+  }
+
+  .resume-link {
+    display: inline-block;
+    margin-top: 1.25rem;
+    color: #000080; 
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.3rem; 
+    transition: color 0.2s ease;
+  }
+
+  .resume-link:hover {
+    color: #0000ff;
+    text-decoration: underline;
+  }
+
+  .image-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .portrait-container {
+    width: 100%;
+    max-width: 480px; 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .portrait {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    position: relative;
+    z-index: 2; 
+  }
+
+  /* Soft shadow gradients */
+  .divider {
+    height: 5px;
+    width: 100%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, transparent 70%);
+  }
+
+  .top-divider {
+    margin-bottom: 2rem;
+    width: 120%; 
+    margin-left: 0;
+  }
+
+  .bottom-divider {
+    position: absolute;
+    bottom: -4; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    margin: 0;
+    z-index: 1; 
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, transparent 70%);
+    pointer-events: none; 
+  }
+
+  /* Back Button Footer Layout */
+  .action-footer {
+    margin-top: 5rem;
+    text-align: center;
+  }
+
+  /* Borderless, Clean "about-style" Back Button */
+  .back-button {
+    display: inline-block;
+    font-family: "Futura-Medium", "Futura", system-ui, sans-serif; 
+    font-size: 2em; 
+    font-weight: 900; 
+    color: #111111;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .back-button:hover {
+    opacity: 0.7; 
+  }
+
+
+  /* --- 📱 MOBILE STYLES --- */
+  @media (max-width: 768px) {
+    .about-wrapper {
+      padding: 0rem 1rem; 
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr; 
+      gap: 2.5rem; 
+    }
+    
+    .image-column {
+      order: -1; 
+    }
+
+    .text-column {
+      text-align: left; 
+      font-size: 1rem;  
+      line-height: 1.4;
+    }
+
+    /* ✂️ Completely omits the divider line above the bio text on mobile devices */
+    .top-divider {
+      display: none;
+    }
+
+    /* 🔄 Restores the bottom divider line beneath your portrait for the mobile stack layout */
+    .bottom-divider {
+      position: relative;
+      transform: none;
+      left: auto;
+      bottom: auto;
+      display: block; 
+      margin-top: -.1rem;
+      width: 90%;
+    }
+
+    .portrait-container {
+      max-width: 260px; 
+    }
+
+    .resume-link {
+      font-size: 1.1rem; 
+      margin-top: 0.5rem;
+    }
+
+    .action-footer {
+      margin-top: rem;
+    }
+  }
+</style>

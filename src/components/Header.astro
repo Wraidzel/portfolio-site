@@ -1,0 +1,26 @@
+---
+import FinleyIsMyHero from "../assets/img/finleyhero.png";
+import { Image } from "astro:assets";
+import Group from "../layouts/Group.astro";
+import Content from "../layouts/Content.astro";
+---
+
+<header>
+  <Content>
+    <Group alignItems="center">
+      <Image
+        src={FinleyIsMyHero}
+        alt="Finley Stein - Visual Effects Generalist"
+      />
+    </Group>
+  </Content>
+</header>
+<style>
+  header {
+    padding-top: 2em;
+  }
+
+  img {
+    max-width: min(320pt, 100%);
+  }
+</style>

@@ -1,0 +1,233 @@
+---
+// src/pages/index.astro
+import FinleyList from "../components/FinleyList.astro";
+import { FinleyLinks } from "../data/links";
+import Content from "../layouts/Content.astro";
+import FinleyPage from "../layouts/FinleyPage.astro";
+import Group from "../layouts/Group.astro";
+---
+
+<FinleyPage>
+  <Content>
+    <Group alignItems="center">
+      <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+      <!-- 🎬 Fading Slideshow Video Container -->
+      <div id="reel-container" class="video-container placeholder-active">
+        
+        <!-- 🔳 The Clickable Preview Rectangle -->
+        <button id="play-trigger" class="video-placeholder" aria-label="Play Visual Effects Reel">
+          
+          <!-- 🎞️ The 5 Crossfading CSS Background Divs -->
+          <div class="slideshow-background">
+            <div class="slide slide-1"></div>
+            <div class="slide slide-2"></div>
+            <div class="slide slide-3"></div>
+            <div class="slide slide-4"></div>
+            <div class="slide slide-5"></div>
+          </div>
+
+          <div class="placeholder-content">
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <h2>Visual Effects Reel <span class="subtext">(click here)</span></h2>
+          </div>
+        </button>
+
+        <!-- 📺 The Hidden Iframe Wrapper -->
+        <div id="video-target" class="video-iframe-wrapper"></div>
+      </div>
+      <script src="https://player.vimeo.com/api/player.js"></script>
+
+      <!-- 🔗 Your Main Navigation Links Wrapper -->
+      <div class="homepage-links">
+        <FinleyList links={FinleyLinks} />
+      </div>
+    </Group>
+  </Content>
+</FinleyPage>
+
+<!-- 🧠 Interaction Handler Script -->
+<script>
+  const trigger = document.getElementById('play-trigger');
+  const container = document.getElementById('reel-container');
+  const target = document.getElementById('video-target');
+
+  trigger?.addEventListener('click', () => {
+    if (container && target) {
+      container.classList.remove('placeholder-active');
+      container.classList.add('video-active');
+
+      target.innerHTML = `
+        <iframe 
+          src="https://player.vimeo.com/video/1202937667?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1" 
+          frameborder="0" 
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          style="position:absolute; top:0; left:0; width:100%; height:100%; background: black;" 
+          title="Finley Stein - CG and Comp Reel">
+        </iframe >
+      `;
+      
+      trigger.style.display = 'none';
+    }
+  });
+</script>
+
+<style>
+  /* --- 🖥️ DESKTOP STYLES --- */
+  .video-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto 3.5rem auto;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: padding-bottom 0.4s ease, border-radius 0.4s ease, box-shadow 0.4s ease, max-width 0.4s ease;
+  }
+
+  /* Compact desktop layout sizing */
+  .placeholder-active {
+    max-width: 550px; 
+    padding-bottom: 45%; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .video-active {
+    max-width: 850px;
+    padding-bottom: 53%; 
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border-radius: 0px; 
+  }
+
+  .video-placeholder {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #111116; 
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease-in-out;
+    z-index: 10;
+    overflow: hidden;
+  }
+
+  .video-placeholder:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.01);
+  }
+
+  .slideshow-background {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1;
+    background: #111116;
+  }
+
+  .slideshow-background::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(17, 17, 22, 0.35); 
+    z-index: 2;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+    opacity: 0;
+    animation: fade 20s linear infinite both; 
+  }
+
+  .slide-1 { background-image: url('/reel-thumb-1.jpg'); animation-delay: 0s; }
+  .slide-2 { background-image: url('/reel-thumb-2.jpg'); animation-delay: 4s; }
+  .slide-3 { background-image: url('/reel-thumb-3.jpg'); animation-delay: 8s; }
+  .slide-4 { background-image: url('/reel-thumb-4.jpg'); animation-delay: 12s; }
+  .slide-5 { background-image: url('/reel-thumb-5.jpg'); animation-delay: 16s; }
+
+  @keyframes fade {
+    0%   { opacity: 0; }
+    5%   { opacity: 1; }
+    20%  { opacity: 1; }
+    25%  { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .placeholder-content {
+    position: relative;
+    z-index: 3; 
+    text-align: center;
+    color: #ffffff;
+    font-family: system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .play-icon {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 0.5em;
+    color: #ffffff;
+    transition: transform 0.25s ease;
+    opacity: 0.8;
+  }
+
+  .video-placeholder:hover .play-icon {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+
+  .placeholder-content h2 {
+    margin: 0;
+    font-size: 1.35em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .subtext {
+    display: block;
+    font-size: 0.75em;
+    font-weight: 400;
+    opacity: 0.6;
+    margin-top: 0.4em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .video-iframe-wrapper {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+  }
+
+
+  /* --- 📱 MOBILE STYLES --- */
+  @media (max-width: 768px) {
+    /* 🔲 Forces the unclicked video placeholder box to scale identically as a tall square on mobile */
+    .placeholder-active {
+      max-width: 340px; /* Constrains it from getting infinitely wide on mobile landscape */
+      padding-bottom: 90%; /* Bumps height up to mimic a balanced square box aspect */
+    }
+
+    /* Keeps the running video player tightly locked to its video format size once clicked */
+    .video-active {
+      max-width: 100%;
+      padding-bottom: 53%; 
+    }
+
+    /* 📉 targets the nested FinleyList text items globally on mobile to scale them down safely */
+    .homepage-links :global(ul) {
+      font-size: 1.5rem !important; /* Drops the link text down gracefully from 2em */
+    }
+    
+    .homepage-links :global(li) {
+      font-weight: 800 !important; /* Slightly tempers the ultra-bold look for clear mobile screen scaling */
+    }
+  }
+</style>
